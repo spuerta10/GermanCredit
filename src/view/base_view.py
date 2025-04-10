@@ -9,7 +9,7 @@ class BaseView(ABC):
     """
 
     @abstractmethod
-    def render(self) -> Any:
+    def render(self, *args: Any) -> Any:
         """Renders the view and returns the data to be displayed.
 
         Returns:
