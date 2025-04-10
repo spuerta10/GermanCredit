@@ -1,7 +1,9 @@
 from streamlit import columns, divider, metric, subheader
 
+from src.view.base_view import BaseView
 
-class PredictionsStatsView:
+
+class PredictionsStatsView(BaseView):
     def render(self, approval_rate: float, rejection_rate: float) -> None:
         subheader("Credit Application Statistics Overview")
         left, right = columns(2)
