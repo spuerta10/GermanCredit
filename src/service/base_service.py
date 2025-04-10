@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Any
 
+from pandas import DataFrame
+
 
 class BaseService(ABC):
     """Abstract base class for services that process data.
@@ -10,11 +12,11 @@ class BaseService(ABC):
     """
 
     @abstractmethod
-    def execute(self, data: dict[Any, Any]) -> Any:
+    def execute(self, data: dict[Any, Any] | DataFrame) -> Any:
         """Executes the service with the provided data.
 
         Args:
-            data (Dict[Any, Any]): A dictionary containing the input data
+            data (Dict[Any, Any], DataFrame): A dictionary or DataFrame containing the input data
                 required for execution.
 
         Returns:
