@@ -29,9 +29,7 @@ def get_features_names(_: Any, feature_names: ndarray) -> ndarray:
     return feature_names
 
 
-def clean_features(
-    X: DataFrame, values: dict[str, list] | None = None, expected: bool = True
-) -> DataFrame:
+def clean_features(X: DataFrame, values: dict[str, list], expected: bool = True) -> DataFrame:
     """
     Cleans the input DataFrame by filtering values in specific categorical columns.
 
@@ -52,25 +50,6 @@ def clean_features(
     """
     assert isinstance(X, DataFrame)
     assert isinstance(values, dict) or values is None
-
-    values = (
-        values
-        if values
-        else {
-            "Housing": ["own", "rent", "free"],
-            "Sex": ["male", "female"],
-            "Purpose": [
-                "car",
-                "radio/TV",
-                "furniture/equipment",
-                "business",
-                "education",
-                "repairs",
-                "domestic appliances",
-                "vacation/others",
-            ],
-        }
-    )
 
     categories_to_review: list[str] = list(set(X.columns).intersection(set(values.keys())))
     if len(categories_to_review) == 0:
@@ -190,11 +169,30 @@ numeric_pipe = Pipeline(
     ]
 )
 
+values: dict[str, list] = {
+    "Housing": ["own", "rent", "free"],
+    "Sex": ["male", "female"],
+    "Purpose": [
+        "car",
+        "radio/TV",
+        "furniture/equipment",
+        "business",
+        "education",
+        "repairs",
+        "domestic appliances",
+        "vacation/others",
+    ],
+}
+
 cat_pipe = Pipeline(
     steps=[
         (
             "clean_categories",
-            FunctionTransformer(clean_features, feature_names_out=get_features_names),
+            FunctionTransformer(
+                clean_features,
+                kw_args={"values": values},
+                feature_names_out=get_features_names,
+            ),
         ),
         ("imputer", SimpleImputer(strategy="most_frequent")),
         ("onehot", OneHotEncoder(drop="first")),
@@ -205,7 +203,11 @@ cat_ord_pipe = Pipeline(
     steps=[
         (
             "clean_categories",
-            FunctionTransformer(clean_features, feature_names_out=get_features_names),
+            FunctionTransformer(
+                clean_features,
+                kw_args={"values": values},
+                feature_names_out=get_features_names,
+            ),
         ),
         ("imputer", SimpleImputer(strategy="most_frequent")),
         ("onehot", OrdinalEncoder()),
@@ -257,11 +259,11 @@ BASELINE_SCORE = 0.57
 
 if metric_result > BASELINE_SCORE:
     print("Model validation passed")
+    dump(
+        best_data_model_pipeline,
+        r"models/first_basic_model.joblib",
+    )
+
 else:
     print(f"Model validation failed: score {metric_result} below baseline {BASELINE_SCORE}")
     raise ValueError()
-
-dump(
-    best_data_model_pipeline,
-    r"models/first_basic_model.joblib",
-)
