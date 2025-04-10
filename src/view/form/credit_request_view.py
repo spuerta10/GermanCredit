@@ -2,10 +2,10 @@ from typing import ClassVar
 
 from streamlit import columns, number_input, selectbox
 
-from src.view.base_view import BaseView
+from src.view.form.base_form_view import BaseFormView
 
 
-class CreditRequestView(BaseView):
+class CreditRequestView(BaseFormView):
     CREDIT_AMOUNT_MIN: ClassVar[float] = 250.0
     CREDIT_AMOUNT_MAX: ClassVar[float] = 987657.0
 

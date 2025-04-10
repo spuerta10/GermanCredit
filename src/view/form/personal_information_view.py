@@ -2,10 +2,10 @@ from typing import ClassVar
 
 from streamlit import columns, number_input, radio, selectbox
 
-from src.view.base_view import BaseView
+from src.view.form.base_form_view import BaseFormView
 
 
-class PersonalInformationView(BaseView):
+class PersonalInformationView(BaseFormView):
     MIN_APPLICANT_AGE: ClassVar[int] = 19
     MAX_APPLICANT_AGE: ClassVar[int] = 75
 

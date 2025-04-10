@@ -2,10 +2,10 @@ from typing import ClassVar
 
 from streamlit import columns, selectbox
 
-from src.view.base_view import BaseView
+from src.view.form.base_form_view import BaseFormView
 
 
-class FinancialStatusView(BaseView):
+class FinancialStatusView(BaseFormView):
     SAVING_ACCOUNTS: ClassVar[list[str]] = ["Little", "Moderate", "Quite rich", "Rich"]
     HOUSING: ClassVar[list[str]] = ["Own", "Rent", "Free"]
 
