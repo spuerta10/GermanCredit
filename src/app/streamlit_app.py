@@ -14,15 +14,15 @@ from src.view import (
 class StreamlitApp:
     CREDIT_APPROVED_MESSAGE: ClassVar[str] = """
     ✅ Credit Approved
-    Your credit application has been approved 🎉
-    We're excited to support your goals. You'll receive the details shortly.
+    \nYour credit application has been approved 🎉
+    \nWe're excited to support your goals. You'll receive the details shortly.
     """
 
     CREDIT_NOT_APPROVED_MESSAGE: ClassVar[str] = """
     ❌ Credit Not Approved
-    Unfortunately, your credit application wasn't approved at this time 😔
-    Don't worry — we're here to help you improve your chances in the future.
-    Let's work on it together.
+    \nUnfortunately, your credit application wasn't approved at this time 😔
+    \nDon't worry — we're here to help you improve your chances in the future.
+    \nLet's work on it together.
     """
 
     def __init__(self, controller: BaseController) -> None:

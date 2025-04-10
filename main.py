@@ -9,7 +9,7 @@ from src.service.transformations import (
 
 if __name__ == "__main__":
     prediction_service: PredictionService = PredictionService(
-        r"models/credit_classification-logistic_regression-v1.joblib"
+        r"models/credit_classification-logistic_regression-v2.joblib"
     )
     streamlit_controller: StreamlitController = StreamlitController(service=prediction_service)
     app: StreamlitApp = StreamlitApp(controller=streamlit_controller)
