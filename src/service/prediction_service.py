@@ -56,7 +56,7 @@ class PredictionService(BaseService):
         return self
 
     # @override
-    def execute(self, data: dict[str, Any]) -> int | Any:
+    def execute(self, data: dict[str, Any] | DataFrame) -> int | Any:
         """Execute prediction on input data.
 
         Args:
@@ -67,6 +67,8 @@ class PredictionService(BaseService):
         """
         assert self.__model, self.MODEL_NOT_LOADED
 
-        df: DataFrame = DataFrame.from_dict(data, orient="index").T
+        df: DataFrame = (
+            DataFrame.from_dict(data, orient="index").T if isinstance(data, dict) else data
+        )
         df = df[self.EXPECTED_COLUMNS]
         return self.__model.predict(df)
