@@ -108,5 +108,9 @@ class StreamlitApp:
                             sleep(3)
                             predictions_view.render(predictions.sample(7, ignore_index=True))
                             approval_rate: float = self.__controller.get_approval_rate(predictions)
-                            stats_view.render(approval_rate, 100 - approval_rate)
+                            stats_view.render(
+                                approval_rate,
+                                100 - approval_rate,
+                                self.__controller.get_plot_data(),
+                            )
                             download_view.render(predictions.to_csv(index=False))
