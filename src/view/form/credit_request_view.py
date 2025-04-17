@@ -36,7 +36,9 @@ class CreditRequestView(BaseFormView):
             purpose: str = selectbox(label="Purpose", options=self.PURPOSE_OPTIONS)
 
         with col2:
-            duration: int = number_input(label="Duration", min_value=4, max_value=72)
+            duration: int = number_input(
+                label="Duration", min_value=self.DURATION_MIN, max_value=self.DURATION_MAX
+            )
 
         return {
             "Credit amount": credit_amount,
