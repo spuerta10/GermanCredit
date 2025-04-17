@@ -27,7 +27,7 @@ def clean_features(
 
     temp_df: DataFrame = input_data.copy()
     categories_to_review: list[str] = list(set(temp_df.columns).intersection(set(values.keys())))
-    if len(categories_to_review) == 0:
+    if not categories_to_review:
         return input_data
 
     temp_df[categories_to_review] = (
