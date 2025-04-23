@@ -21,7 +21,7 @@ class CreditRequestView(BaseFormView):
     ]
 
     DURATION_MIN: ClassVar[int] = 4  # in months
-    DURATION_MAX: ClassVar[int] = 12
+    DURATION_MAX: ClassVar[int] = 72
 
     def render(self) -> dict[str, str | int | float]:
         col1, col2 = columns(2)
@@ -37,7 +37,10 @@ class CreditRequestView(BaseFormView):
 
         with col2:
             duration: int = number_input(
-                label="Duration", min_value=self.DURATION_MIN, max_value=self.DURATION_MAX
+                label="Duration",
+                min_value=self.DURATION_MIN,
+                max_value=self.DURATION_MAX,
+                help="Loan duration in months",
             )
 
         return {
